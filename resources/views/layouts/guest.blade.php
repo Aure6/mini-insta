@@ -29,12 +29,36 @@
                 </div>
                 <div class="flex items-center space-x-4 justify-end">
                     <a class="font-bold hover:text-emerald-600 transition" href="/">Posts</a>
+                    <a class="font-bold hover:text-emerald-600 transition" href="/login">Login</a>
+                    <a class="font-bold hover:text-emerald-600 transition" href="/register">Sign up</a>
                 </div>
             </nav>
 
             <main>
                 {{ $slot }}
             </main>
+
+            <!-- Footer -->
+            <footer class="flex justify-between items-center py-2 gap-x-10">
+                {{-- <!-- Facebook -->
+                <a href="#" class="">
+
+                </a>
+
+                <!-- Twitter -->
+                <a href="#" class="">
+                    <x-si-x class="mr-4 w-12 transition hover:scale-125" />
+                </a>
+
+                <!-- Instagram -->
+                <a href="#" class="text-pink-600 hover:text-pink-500">
+                    <x-si-instagram class="hover:scale-125 mr-4 w-12 transition" />
+                </a> --}}
+
+                <p class="m-auto">{{ date('Y') }} &copy; The New Grammm</p>
+            </footer>
+            <!-- End of footer -->
+
         </div>
     </div>
 </body>
