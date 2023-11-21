@@ -2,4 +2,7 @@
     href="{{ route('posts.show', $post) }}">
     <p>{{ $post->caption }}</p>
     <p class="text-sm">{{ $post->user->name }}</p>
+    <p class="mb-4 text-xs text-gray-500">
+        {{ $post->published_at }}
+    </p>
 </a>

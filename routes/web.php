@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,5 +38,8 @@ Route::get('/', [HomepageController::class, 'index']);
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::resource('articles', AdminArticleController::class);
+});
 
 require __DIR__ . '/auth.php';
