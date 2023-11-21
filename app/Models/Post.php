@@ -9,6 +9,8 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $casts = ["published_at" => "datetime"];
+
     public function user()
     {
         return $this->belongsTo(User::class);

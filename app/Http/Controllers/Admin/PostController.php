@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\PostStoreRequest;
+//use App\Http\Controllers\Auth\LoginRequest;
+use Illuminate\Support\Facades\Auth;
+
 class PostController extends Controller
 {
     /**
@@ -29,7 +33,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.posts.create');
     }
 
     /**
@@ -37,7 +41,14 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = Post::make();
+        $post->caption = $request->validated()['caption'];
+        // $post->body = $request->validated()['body'];
+        $post->published_at = $request->validated()['published_at'];
+        $post->user_id = Auth::id();
+        $post->save();
+
+        return redirect()->route('posts.index');
     }
 
     /**
