@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\DashboardController; //TODO A SUPPR
-use App\Http\Controllers\Admin\ArticleController as AdminArticleController; //TODO A SUPPR
+//use App\Http\Controllers\DashboardController; //TODO A SUPPR
+//use App\Http\Controllers\Admin\ArticleController as AdminArticleController; //TODO A SUPPR
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -27,6 +27,7 @@ Route::get('/', function () {
 // Route::get('/dashboard', function () {
 //     //return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard'); //protégé par l'authentification
+//postcontroller ajouté au dashboard
 Route::get('/dashboard', [PostController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
