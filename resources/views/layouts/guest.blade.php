@@ -24,7 +24,8 @@
                         class="group font-bold text-3xl flex items-center space-x-4 hover:text-emerald-600 transition ">
                         <x-application-logo
                             class="w-10 h-10 fill-current text-gray-500 group-hover:text-emerald-500 transition" />
-                        <span>Mon blog</span>
+                        {{-- <span>Mon blog</span> --}}
+                        <span>The New Gram</span>
                     </a>
                 </div>
                 <div class="flex items-center space-x-4 justify-end">
@@ -55,7 +56,7 @@
                     <x-si-instagram class="hover:scale-125 mr-4 w-12 transition" />
                 </a> --}}
 
-                <p class="m-auto">{{ date('Y') }} &copy; The New Grammm</p>
+                <p class="m-auto">{{ date('Y') }} &copy; The New Gram</p>
             </footer>
             <!-- End of footer -->
 
