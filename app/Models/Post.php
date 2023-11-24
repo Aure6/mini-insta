@@ -9,6 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
+    //pour éviter une certaine erreur
     protected $casts = ["published_at" => "datetime"];
 
     public function user()
