@@ -1,12 +1,9 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PostController;
-//use App\Http\Controllers\ProfileController; //TODO pour le profil public
-
+use Illuminate\Support\Facades\Route;
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -52,6 +49,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // modification de l'avatar
+    Route::patch('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
     // TODO Détail d'un profil utilisateur "show"
     // TODO follow
 });
