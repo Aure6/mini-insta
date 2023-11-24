@@ -29,14 +29,19 @@
                     </a>
                 </div>
                 <div class="flex items-center space-x-4 justify-end">
-                    <a class="font-bold hover:text-emerald-600 transition" href="/">Posts</a>
-                    <a class="font-bold hover:text-emerald-600 transition" href="/login">Login</a>
-                    <a class="font-bold hover:text-emerald-600 transition" href="/register">Sign up</a>
+                    {{-- <a class="font-bold hover:text-emerald-600 transition" href="/">Posts</a> --}}
+                    {{-- <a class="font-bold hover:text-emerald-600 transition" href="/login">Login</a>
+                    <a class="font-bold hover:text-emerald-600 transition" href="/register">Sign up</a> --}}
                 </div>
             </nav>
 
             <main>
-                {{ $slot }}
+                <div class="flex items-center space-x-4 justify-center text-9xl	">
+                    <a class="font-bold hover:text-emerald-600 transition" href="/login">Login</a>
+                    <a class="font-bold hover:text-emerald-600 transition" href="/register">Sign up</a>
+                </div>
+                {{-- {{ $slot }} --}}
+
             </main>
 
             <!-- Footer -->

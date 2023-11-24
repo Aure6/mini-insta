@@ -5,8 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PostController;
-//use App\Http\Controllers\DashboardController; //TODO A SUPPR
-use App\Http\Controllers\Admin\ArticleController as AdminArticleController; //
+//use App\Http\Controllers\ProfileController; //TODO pour le profil public
+
+
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -25,40 +26,35 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
     return view('welcome');
 }); */
 
-/* =============================================== */
-// Page d'accueil si connecté
-/* Route::get('/dashboard', function () {
+// Logged in
+Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])
-    ->name('dashboard'); */
-
-// Route::get('/dashboard', [DashboardController::class, 'index']);
-
-//dashboard avec postcontroller pour afficher les articles avec fonction articles.index
-Route::get('/dashboard', [PostController::class, 'index'])
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-/* =============================================== */
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 // Page d'accueil si non connecté
 Route::get('/', [HomepageController::class, 'index']);
-// Liste des posts
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-// Détail d'un post
-Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::resource('posts', AdminPostController::class);
-});
 
-// Gestion du profil utilisateur
+// Authentifié
 Route::middleware('auth')->group(function () {
+    // Liste des posts
+    Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+    // Affichage du formulaire de création d'un post
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    // Récupération des données du formulaire de création d'un post
+    // posts/create doit être après /posts/{id}
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    // Détail d'un post
+    Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+    // TODO likes avec le PostController
+    // TODO commentaires avec le PostController
+
+    // Gestion du profil utilisateur
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // TODO Détail d'un profil utilisateur "show"
+    // TODO follow
 });
-
-// Détail d'un profil utilisateur
-//TODO
 
 // Authentification
 require __DIR__ . '/auth.php';

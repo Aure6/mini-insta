@@ -11,7 +11,7 @@ class PostStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +22,9 @@ class PostStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'caption' => 'required|unique:articles|max:255',
+            // 'caption' => 'required|unique:posts|max:255',
             'published_at' => 'nullable|date',
+            'img' => 'nullable|image|max:2048',
             'caption' => 'required|max:10000',
         ];
     }

@@ -16,9 +16,14 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <!--  lien vers la liste des articles dans le menu de l'administration -->
-                    <x-nav-link :href="route('articles.index')" :active="request()->routeIs('articles.*')">
-                        {{ __('Articles') }}
+                    <!--  lien vers création de post -->
+                    <x-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
+                        {{ __('Publier un post') }}
+                    </x-nav-link>
+
+                    <!--  lien vers la liste des posts -->
+                    <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+                        {{ __('Posts') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -85,9 +90,9 @@
             </x-responsive-nav-link>
         </div>
 
-        <!--  lien vers la liste des articles dans le menu de l'administration -->
-        <x-responsive-nav-link :href="route('articles.index')" :active="request()->routeIs('articles.*')">
-            {{ __('Articles') }}
+        <!--  lien vers la liste des posts -->
+        <x-responsive-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.*')">
+            {{ __('Posts') }}
         </x-responsive-nav-link>
 
         <!-- Responsive Settings Options -->

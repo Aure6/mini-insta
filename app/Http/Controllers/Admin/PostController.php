@@ -21,7 +21,7 @@ class PostController extends Controller
             ->paginate(10);
 
         return view(
-            'admin.articles.index',
+            'admin.posts.index',
             [
                 'posts' => $posts,
             ]
