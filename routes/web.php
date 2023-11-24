@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PostController;
 //use App\Http\Controllers\DashboardController; //TODO A SUPPR
-//use App\Http\Controllers\Admin\ArticleController as AdminArticleController; //TODO A SUPPR
+use App\Http\Controllers\Admin\ArticleController as AdminArticleController; //
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -20,34 +20,45 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-Route::get('/', function () {
+//par défaut
+/* Route::get('/', function () {
     return view('welcome');
-});
+}); */
 
-// Route::get('/dashboard', function () {
-//     //return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard'); //protégé par l'authentification
-//postcontroller ajouté au dashboard
+/* =============================================== */
+// Page d'accueil si connecté
+/* Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])
+    ->name('dashboard'); */
+
+// Route::get('/dashboard', [DashboardController::class, 'index']);
+
+//dashboard avec postcontroller pour afficher les articles avec fonction articles.index
 Route::get('/dashboard', [PostController::class, 'index'])
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+/* =============================================== */
 
+// Page d'accueil si non connecté
+Route::get('/', [HomepageController::class, 'index']);
+// Liste des posts
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+// Détail d'un post
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+Route::middleware(['auth'])->prefix('admin')->group(function () {
+    Route::resource('posts', AdminPostController::class);
+});
+
+// Gestion du profil utilisateur
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//a partir d'ici ajouté
-Route::get('/', [HomepageController::class, 'index']);
-Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+// Détail d'un profil utilisateur
+//TODO
 
-//dashboard
-// Route::get('/dashboard', [DashboardController::class, 'index']);
-
-Route::middleware(['auth'])->prefix('admin')->group(function () {
-    Route::resource('posts', AdminPostController::class);
-});
-
+// Authentification
 require __DIR__ . '/auth.php';
