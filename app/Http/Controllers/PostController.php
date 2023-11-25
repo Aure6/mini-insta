@@ -13,26 +13,49 @@ use Carbon\Carbon;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
+    {
+        $posts = Post::where('published_at', '<', now())
+            ->where('caption', 'LIKE', '%' . $request->query('search') . '%')
+            // ->orWhere('caption', 'LIKE', '%' . $request->query('search') . '%')
+            ->orWhereHas('user', function ($query) use ($request) {
+                $query->where('name', 'LIKE', '%' . $request->query('search') . '%');
+            })
+            ->orderByDesc('published_at')
+            ->paginate(12);
+
+        return view('posts.index', [
+            'posts' => $posts,
+        ]);
+    }
+    /* public function index()
     {
         $posts = Post::paginate(12);
 
         return view('posts.index', [
             'posts' => $posts,
         ]);
-    }
+    } */
     /**
      * Display the specified resource.
      */
     public function show($id)
     {
+        // On récupère le post et on renvoie une erreur 404 si le post n'existe pas
         $post = Post::findOrFail($id);
+        // On récupère les commentaires du post, avec les utilisateurs associés (via la relation)
+        // On les trie par date de création (le plus ancien en premier)
+        $comments = $post
+            ->comments()
+            ->with('user')
+            ->orderBy('created_at')
+            ->get();
 
         return view('posts.show', [
             'post' => $post,
+            'comments' => $comments,
         ]);
     }
-    //à partir d'ici, c'est copié de l'ancien admin postcontroller
     /**
      * Show the form for creating a new resource.
      */
