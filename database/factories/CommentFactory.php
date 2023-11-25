@@ -19,8 +19,8 @@ class CommentFactory extends Factory
         return [
             // n'importe quel utilisateur
             'user_id' => \App\Models\User::get()->random()->id,
-            // n'importe quel article
-            'article_id' => \App\Models\Post::get()->random()->id,
+            // n'importe quel post
+            'post_id' => \App\Models\Post::get()->random()->id,
             // un texte aléatoire de 20 à 400 caractères
             'body' => fake()->realTextBetween($minNbChars = 20, $maxNbChars = 400),
             // une date aléatoire entre -2 mois et maintenant
