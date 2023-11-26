@@ -34,6 +34,15 @@
             <div class="my-4">
                 {!! \nl2br($post->caption) !!}
             </div>
+            {{-- Like et compteur de likes --}}
+            <div>
+                <form method="POST" action="{{ route('posts.like', $post->id) }}">
+                    @csrf
+                    <button type="submit" class="font-bold my-4 hover:text-emerald-600 transition">
+                        {{ $post->isLikedByUser(auth()->user()) ? 'Unlike' : 'Like' }} ({{ $post->likes->count() }})
+                    </button>
+                </form>
+            </div>
             <div>
                 <a class="font-bold my-4 hover:text-emerald-600 transition" href="{{ route('posts.index') }}">Retour à
                     la

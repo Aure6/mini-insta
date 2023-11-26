@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Like;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\PostStoreRequest;
@@ -99,6 +100,21 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
+    public function like(Post $post)
+    {
+        $user = auth()->user();
+
+        if ($post->isLikedByUser($user)) {
+            $post->likes()->where('user_id', $user->id)->delete();
+        } else {
+            Like::create([
+                'user_id' => $user->id,
+                'post_id' => $post->id,
+            ]);
+        }
+
+        return back();
+    }
 
     /**
      * Show the form for editing the specified resource.

@@ -43,8 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
     // Affichage du formulaire de création d'un post
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
-    // TODO likes avec le PostController
+    // Stockage d'un commentaire
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
+    // Liker un post
+    Route::post('/posts/{post}/like', [PostController::class, 'like'])->name('posts.like');
 
     // Gestion du profil utilisateur
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
