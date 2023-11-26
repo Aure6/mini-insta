@@ -44,7 +44,6 @@ Route::middleware('auth')->group(function () {
     // Affichage du formulaire de création d'un post
     Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     // TODO likes avec le PostController
-    // TODO publier un commentaire
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
     // Gestion du profil utilisateur
@@ -53,9 +52,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     // modification de l'avatar
     Route::patch('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
-    // TODO Détail d'un profil utilisateur "show"
+    // Détail d'un profil utilisateur
+    Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
     // TODO follow
 });
+
+
 
 // Authentification
 require __DIR__ . '/auth.php';

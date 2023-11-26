@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,29 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+    public function show(User $user): View
+    {
+        // Les posts publiés par l'utilisateur
+        $posts = $user
+            ->posts()
+            ->where('published_at', '<', now())
+            ->withCount('comments')
+            ->orderByDesc('published_at')
+            ->get();
+
+        // Les commentaires de l'utilisateur triés par date de création
+        $comments = $user
+            ->comments()
+            ->orderByDesc('created_at')
+            ->get();
+
+        // On renvoie la vue avec les données
+        return view('profile.show', [
+            'user' => $user,
+            'posts' => $posts,
+            'comments' => $comments,
+        ]);
+    }
     /**
      * updateAvatar
      */
