@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
     // Détail d'un profil utilisateur
     Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
+    // modifier la bio
+    Route::patch('/profile/bio', [ProfileController::class, 'updateBio'])->name('profile.bio.update');
     // TODO follow
 });
 

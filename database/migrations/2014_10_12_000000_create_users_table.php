@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('avatar_path')->nullable();
+            $table->string('bio')->nullable();
         });
     }
 

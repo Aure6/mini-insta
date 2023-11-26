@@ -35,6 +35,25 @@ class ProfileController extends Controller
             'comments' => $comments,
         ]);
     }
+
+    /**
+     * updateBio
+     */
+    public function updateBio(Request $request): RedirectResponse
+    {
+        // Validation sans passer par une form request
+        $request->validate([
+            'bio' => ['required', 'string', 'max:10000'], // Ajustez les règles de validation selon vos besoins
+        ]);
+
+        // Si la biographie est valide, on la sauvegarde
+        $user = $request->user();
+        $user->bio = $request->input('bio');
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('status', 'bio-updated');
+    }
+
     /**
      * updateAvatar
      */
