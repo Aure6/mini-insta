@@ -35,6 +35,30 @@
             <h2 class="font-bold text-xl mb-4">Commentaires</h2>
 
             <div class="flex-col space-y-4">
+                {{-- Publier un commentaire --}}
+                <div class="flex bg-white rounded-md shadow p-4 space-x-4">
+                    <div class="flex flex-col justify-center w-full">
+                        <div class="text-gray-700">
+                            <form method="POST" action="{{ route('comments.store', ['post' => $post->id]) }}"
+                                class="flex flex-col space-y-4 text-gray-500" enctype="multipart/form-data">
+                                @csrf
+                                <label for="body" class="text-gray-700">Publier un commentaire:</label>
+                                <input type="text" placeholder="Publier un commentaire" name="body"
+                                    class="text-gray-700">
+                                @if ($errors->any())
+                                    <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-4">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Publier</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
                 @forelse ($post->comments as $comment)
                     <div class="flex bg-white rounded-md shadow p-4 space-x-4">
                         <div class="flex justify-start items-start h-full">

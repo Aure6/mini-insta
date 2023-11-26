@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -35,15 +36,16 @@ Route::get('/', [HomepageController::class, 'index']);
 Route::middleware('auth')->group(function () {
     // Liste des posts
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-    // Affichage du formulaire de création d'un post
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     // Récupération des données du formulaire de création d'un post
     // posts/create doit être après /posts/{id}
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
     // Détail d'un post
     Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
+    // Affichage du formulaire de création d'un post
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     // TODO likes avec le PostController
-    // TODO commentaires avec le PostController
+    // TODO publier un commentaire
+    Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
     // Gestion du profil utilisateur
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
