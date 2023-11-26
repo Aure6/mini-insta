@@ -27,10 +27,34 @@ class CommentController extends Controller
 
     //     return redirect()->back()->with('success', 'Comment added successfully.');
     // }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(CommentStoreRequest $request, $postId)
+    {
+        // On crée un nouveau commentaire / Create a new comment
+        $comment = Comment::make();
+
+        // Retrieve the post et on renvoie une erreur 404 si le post n'existe pas
+        $post = Post::findOrFail($postId);
+
+        // On ajoute les propriétés du post
+        $comment->body = $request->validated()['body'];
+
+        $comment->user_id = Auth::id();
+
+        // Associate the comment with the post
+        $post->comments()->save($comment);
+
+        // Flash a success message to the session
+        session()->flash('success', 'Comment created successfully.');
+
+        // Redirect back to the post or wherever you want
+        return redirect()->route('posts.show', ['id' => $postId]);
+    }
+
+    /* public function store(CommentStoreRequest $request, $postId)
     {
         // Ensure that the user is authenticated before attempting to save the comment. If not, you might need to handle cases where the user is not authenticated.
         if (Auth::check()) {
@@ -56,7 +80,5 @@ class CommentController extends Controller
 
         // Redirect back to the post or wherever you want
         return redirect()->route('posts.show', ['id' => $postId]);
-    }
-
-    // Other comment controller methods...
+    } */
 }

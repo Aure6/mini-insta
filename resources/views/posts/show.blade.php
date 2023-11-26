@@ -1,5 +1,14 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto">
+        <!-- Display success message if it exists in the session -->
+        @if (session('success'))
+            <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4" role="alert">
+                    <p class="font-bold">Success</p>
+                    <p>{{ session('success') }}</p>
+                </div>
+            </div>
+        @endif
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8 py-8">
             {{-- <h1 class="font-bold text-xl mb-4">{!! \nl2br($post->caption) !!}</h1> --}}
             {{-- semble fonctionner aussi <img class="flex-grow text-sm text-justify" src="{{ asset('storage/' . $post->img_path) }}"> --}}
