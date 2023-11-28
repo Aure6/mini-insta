@@ -63,14 +63,11 @@ class User extends Authenticatable
     }
 
     //Follow
-    // Define the followers relationship
-    public function followers(): BelongsToMany
+    public function followers()
     {
-        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'user_id')
-            ->withTimestamps();
+        return $this->hasMany(Follow::class, 'followed_id', 'id');
     }
 
-    // Define the followed relationship
     public function followed(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_id')
@@ -80,7 +77,8 @@ class User extends Authenticatable
     // Check if the user is followed by another user
     public function isFollowedByUser(User $user): bool
     {
-        return $this->followers->contains($user);
+        //return $this->followers->contains($user);
+        return $this->followers->contains('user_id', $user->id);
     }
 
     // public function follow()

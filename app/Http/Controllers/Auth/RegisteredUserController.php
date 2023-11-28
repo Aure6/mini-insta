@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Follow;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -12,9 +13,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-
-//follow
-use App\Models\Follow;
 
 class RegisteredUserController extends Controller
 {
@@ -53,42 +51,23 @@ class RegisteredUserController extends Controller
     }
 
     // /* follow */
+
+
     public function follow(User $user)
     {
-        $followed = Follow::where('follower_id', Auth::id())->where('followed_id', $user->id)->first();
+        $user = auth()->user();
 
-        if ($followed) {
-            $followed->delete();
+        if ($post->isFollowedByUser($user)) {
+            $post->likes()->where('user_id', $user->id)->delete();
         } else {
-            Follow::create([
-                'follower_id' => Auth::id(),
-                'followed_id' => $user->id,
+            Like::create([
+                'user_id' => $user->id,
+                'post_id' => $post->id,
             ]);
         }
 
         return back();
+
+        return back();
     }
-
-    // public function follow(User $user)
-    // {
-    //     // Check if the authenticated user is not already following the given user
-    //     if (!auth()->user()->following->contains('follower_id', $user->id)) {
-    //         // Create a new follow record
-    //         $follow = new Follow();
-    //         $follow->user_id = auth()->user()->id; // Set the follower's user_id
-    //         $follow->follower_id = $user->id;     // Set the user being followed as follower_id
-    //         $follow->save();
-    //     }
-
-    //     return back();
-    // }
-    // //unfollow
-    // public function unfollow(User $user)
-    // {
-    //     // auth()->user()->following()->where('follower_id', $user->id)->delete();
-
-    //     auth()->user()->following()->detach($user->id);
-
-    //     return back();
-    // }
 }

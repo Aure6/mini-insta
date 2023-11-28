@@ -10,29 +10,14 @@
                 </div>
             </div>
             <div>
+                {{-- for follow --}}
                 {{-- form follow calqué sur le form like qui lui est fonctionnel --}}
                 <form method="POST" action="{{ route('users.follow', $user->id) }}">
-                    @csrf
-
-                    @if (auth()->user()->isFollowedByUser($user))
-                        @method('DELETE')
-                        <button type="submit" class="font-bold my-4 hover:text-emerald-600 transition">
-                            Unfollow
-                        </button>
-                    @else
-                        <button type="submit" class="font-bold my-4 hover:text-emerald-600 transition">
-                            Follow
-                        </button>
-                    @endif
-                </form>
-
-
-                {{-- <form method="POST" action="{{ route('users.follow', $user->id) }}">
                     @csrf
                     <button type="submit" class="font-bold my-4 hover:text-emerald-600 transition">
                         {{ $user->isFollowedByUser(auth()->user()) ? 'Unfollow' : 'Follow' }}
                     </button>
-                </form> --}}
+                </form>
 
 
                 {{-- @if (auth()->user()->isFollowing($user))
