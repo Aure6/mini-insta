@@ -100,6 +100,7 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
+    /* Like */
     public function like(Post $post)
     {
         $user = auth()->user();

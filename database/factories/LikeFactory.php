@@ -22,6 +22,8 @@ class LikeFactory extends Factory
         return [
             'user_id' => User::get()->random()->id,
             'post_id' => Post::get()->random()->id,
+            // une date aléatoire entre -2 mois et maintenant
+            // 'created_at' => fake()->dateTimeBetween('-2 months', 'now'),
         ];
     }
 }

@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/bio', [ProfileController::class, 'updateBio'])->name('profile.bio.update');
     // follow
     Route::post('/users/{user}/follow', [RegisteredUserController::class, 'follow'])->name('users.follow');
-    Route::post('/users/{user}/unfollow', [RegisteredUserController::class, 'unfollow'])->name('users.unfollow');
+    // Route::post('/users/{user}/unfollow', [RegisteredUserController::class, 'unfollow'])->name('users.unfollow');
 });
 
 
