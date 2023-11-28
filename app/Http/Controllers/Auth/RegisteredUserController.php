@@ -51,23 +51,33 @@ class RegisteredUserController extends Controller
     }
 
     // /* follow */
-
-
     public function follow(User $user)
     {
-        $user = auth()->user();
+        auth()->user()->follow($user);
 
-        if ($post->isFollowedByUser($user)) {
-            $post->likes()->where('user_id', $user->id)->delete();
-        } else {
-            Like::create([
-                'user_id' => $user->id,
-                'post_id' => $post->id,
-            ]);
-        }
-
-        return back();
-
-        return back();
+        return redirect()->back();
     }
+
+    public function unfollow(User $user)
+    {
+        auth()->user()->unfollow($user);
+
+        return redirect()->back();
+    }
+
+    // public function follow(User $user)
+    // {
+    //     $user = auth()->user();
+
+    //     if ($post->isFollowedByUser($user)) {
+    //         $post->likes()->where('user_id', $user->id)->delete();
+    //     } else {
+    //         Like::create([
+    //             'user_id' => $user->id,
+    //             'post_id' => $post->id,
+    //         ]);
+    //     }
+
+    //     return back();
+    // }
 }

@@ -65,39 +65,50 @@ class User extends Authenticatable
     //Follow
     public function followers()
     {
-        return $this->hasMany(Follow::class, 'followed_id', 'id');
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'user_id');
     }
 
-    public function followed(): BelongsToMany
+    public function following()
     {
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_id')
-            ->withTimestamps();
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_id');
     }
 
-    // Check if the user is followed by another user
-    public function isFollowedByUser(User $user): bool
+    public function isFollowedByUser(User $user)
     {
-        //return $this->followers->contains($user);
-        return $this->followers->contains('user_id', $user->id);
+        return $this->followers->contains($user);
     }
 
-    // public function follow()
+    public function isFollowing(User $user)
+    {
+        return $this->following->contains($user);
+    }
+
+    public function follow(User $user)
+    {
+        $this->following()->attach($user->id);
+    }
+
+    public function unfollow(User $user)
+    {
+        $this->following()->detach($user->id);
+    }
+
+
+    // public function followers()
     // {
-    //     return $this->belongsToMany(User::class, 'follows');
+    //     return $this->hasMany(Follow::class, 'followed_id', 'id');
     // }
 
-    // public function followed()
+    // public function followed(): BelongsToMany
     // {
-    //     return $this->belongsToMany(User::class, 'follows');
+    //     return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_id')
+    //         ->withTimestamps();
     // }
 
-    // public function follows()
+    // // Check if the user is followed by another user
+    // public function isFollowedByUser(User $user): bool
     // {
-    //     return $this->belongsToMany(User::class, 'follows', 'user_id', 'follower_id');
-    // }
-
-    // public function isFollowedByUser(User $user)
-    // {
-    //     return $this->followers->contains($user);
+    //     //return $this->followers->contains($user);
+    //     return $this->followers->contains('user_id', $user->id);
     // }
 }
