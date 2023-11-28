@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
+//follow
+use App\Models\Follow;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -32,7 +35,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -47,5 +50,30 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
+    }
+
+    //follow
+    public function follow(User $user)
+    {
+        // auth()->user()->following()->create(['follower_id' => $user->id]);
+
+        // return back();
+        // Check if the authenticated user is not already following the given user
+        if (!auth()->user()->following->contains('follower_id', $user->id)) {
+            // Create a new follow record
+            $follow = new Follow();
+            $follow->user_id = auth()->user()->id; // Set the follower's user_id
+            $follow->follower_id = $user->id;     // Set the user being followed as follower_id
+            $follow->save();
+        }
+
+        return back();
+    }
+    //unfollow
+    public function unfollow(User $user)
+    {
+        auth()->user()->following()->where('follower_id', $user->id)->delete();
+
+        return back();
     }
 }

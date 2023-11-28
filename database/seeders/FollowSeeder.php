@@ -13,6 +13,6 @@ class FollowSeeder extends Seeder
      */
     public function run(): void
     {
-        Follow::factory(5)->create();
+        Follow::factory(50)->create();
     }
 }

@@ -9,6 +9,19 @@
                     Membre depuis {{ $user->created_at->diffForHumans() }}
                 </div>
             </div>
+            <div>
+                @if (auth()->user()->isFollowing($user))
+                    <form method="POST" action="{{ route('users.unfollow', $user) }}">
+                        @csrf
+                        <button type="submit">Unfollow</button>
+                    </form>
+                @else
+                    <form method="POST" action="{{ route('users.follow', $user) }}">
+                        @csrf
+                        <button type="submit">Follow</button>
+                    </form>
+                @endif
+            </div>
         </div>
         {{-- Bio --}}
         <div class="flex w-full ">

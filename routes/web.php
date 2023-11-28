@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\PostController;
@@ -58,7 +59,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
     // modifier la bio
     Route::patch('/profile/bio', [ProfileController::class, 'updateBio'])->name('profile.bio.update');
-    // TODO follow
+    // follow
+    Route::post('/users/{user}/follow', [RegisteredUserController::class, 'follow'])->name('users.follow');
+    Route::post('/users/{user}/unfollow', [RegisteredUserController::class, 'unfollow'])->name('users.unfollow');
 });
 
 
