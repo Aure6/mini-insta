@@ -49,35 +49,4 @@ class RegisteredUserController extends Controller
 
         return redirect(RouteServiceProvider::HOME);
     }
-
-    // /* follow */
-    public function follow(User $user)
-    {
-        auth()->user()->follow($user);
-
-        return redirect()->back();
-    }
-
-    public function unfollow(User $user)
-    {
-        auth()->user()->unfollow($user);
-
-        return redirect()->back();
-    }
-
-    // public function follow(User $user)
-    // {
-    //     $user = auth()->user();
-
-    //     if ($post->isFollowedByUser($user)) {
-    //         $post->likes()->where('user_id', $user->id)->delete();
-    //     } else {
-    //         Like::create([
-    //             'user_id' => $user->id,
-    //             'post_id' => $post->id,
-    //         ]);
-    //     }
-
-    //     return back();
-    // }
 }

@@ -25,6 +25,9 @@ class RedirectIfAuthenticated
             }
         }
 
+        // Flash a success message to the session
+        session()->flash('success', 'Connecté avec succès.');
+
         return $next($request);
     }
 }
