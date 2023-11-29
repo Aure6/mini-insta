@@ -10,13 +10,20 @@
                 </div>
             </div>
             <div>
-                {{-- for follow --}}
-                {{-- form follow calqué sur le form like qui lui est fonctionnel --}}
-                <form method="POST" action="{{ route('users.follow', $user->id) }}">
+                {{-- follow form --}}
+                <form method="POST" action="{{ route('profile.follow', $user) }}" class="">
                     @csrf
-                    <button type="submit" class="font-bold my-4 hover:text-emerald-600 transition">
-                        {{ $user->isFollowedByUser(auth()->user()) ? 'Unfollow' : 'Follow' }}
-                    </button>
+                    <div class="text-grey-700 mt-2 flex justify-end">
+                        <button type="submit"
+                            class="font-bold bg-white text-grey-800 hover:text-emerald-600 transition">
+                            @if ($followCount == 1)
+                                <x-heroicon-s-hand-thumb-up class="h6 w6" />
+                            @else
+                                <x-heroicon-o-hand-thumb-up class="h6 w6" />
+                            @endif
+                            {{ $totalFollows . ' - ' . $totalFollowers }}
+                        </button>
+                    </div>
                 </form>
 
 
