@@ -11,6 +11,7 @@
             </div>
             <div>
                 {{-- follow form --}}
+                {{ dd($followCount) }}
                 <form method="POST" action="{{ route('profile.follow', $user) }}" class="">
                     @csrf
                     <div class="text-grey-700 mt-2 flex justify-end">

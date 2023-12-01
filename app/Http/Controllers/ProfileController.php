@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
+use App\Models\Follow;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,10 +40,28 @@ class ProfileController extends Controller
     /* follow */
     public function follow(Request $request, User $user)
     {
+        $user = auth()->user();
+
+        // Calculate the follow count for the current user
+        // $followCount = $user->following()->count();
+        $followCount = $user()->isFollowedByUser->count();
+
+        // Update the follow count for the target user
+        $totalFollows = $user->following()->count();
+        $totalFollowers = $user->followers()->count();
+
         // Your logic to handle the follow action goes here
         // Example: $user->followers()->attach(auth()->user());
 
-        return redirect()->back(); // Redirect back to the user's profile page
+        // On renvoie la vue avec les données
+        return view('profile.show', [
+            'followCount' => $followCount,
+            'totalFollows' => $totalFollows,
+            'totalFollowers' => $totalFollowers,
+            'user' => $user, // You may need to pass the $user variable if it's used in the 'profile.show' view
+        ]);
+        // Return the view with the data. The view is returned with the data using the compact function, which is more concise and easier to read than manually specifying each variable.
+        // return view('profile.show', compact('followCount', 'totalFollows', 'totalFollowers'));
     }
     // public function follow(User $user)
     // {
