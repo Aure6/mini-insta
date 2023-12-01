@@ -47,6 +47,7 @@ class ProfileController extends Controller
         // The user id of the user to be followed or unfollowed
         $user_id = $user->id;
 
+        // On renvoie la vue avec les données
         return view('profile.show', compact('user', 'posts', 'comments', 'user_id'));
     }
 

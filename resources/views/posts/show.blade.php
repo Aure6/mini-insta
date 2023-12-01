@@ -10,17 +10,16 @@
             </div>
         @endif
 
-        <div class="max-w-xl mx-auto sm:px-6 lg:px-8 py-8">
+        <div class="max-w-xl mx-auto m-1">
             {{-- <h1 class="font-bold text-xl mb-4">{!! \nl2br($post->caption) !!}</h1> --}}
             {{-- semble fonctionner aussi <img class="flex-grow text-sm text-justify" src="{{ asset('storage/' . $post->img_path) }}"> --}}
             {{-- méthode du cours: --}}
             <img class="{{-- max-w-2xl --}} object-contain flex-grow text-sm text-justify"
                 src="{{ Storage::url($post->img_path) }}" alt="illustration du post">
             {{-- <p class="text-sm">{{ $post->user->name }}</p> --}}
-            <div class="flex mt-8">
-                <a class="flex mt-8 hover:-translate-y-1 transition
-    "
-                    href="{{ route('profile.show', $post->user) }}">
+            <div class="flex mt-8 mb-4">
+                <a class="flex hover:-translate-y-1 transition
+    " href="{{ route('profile.show', $post->user) }}">
                     <x-avatar class="h-20 w-20" :user="$post->user" />
                     <div class="ml-4 flex flex-col justify-center">
                         <div class="text-gray-700">{{ $post->user->name }}</div>
@@ -31,31 +30,33 @@
             <div class="mb-4 text-xs text-gray-500">
                 {{ $post->published_at }}
             </div>
-            <div class="my-4">
+            <div class="mb-4">
                 {!! \nl2br($post->caption) !!}
             </div>
             {{-- Like et compteur de likes --}}
-            <div>
-                <form method="POST" action="{{ route('posts.like', $post->id) }}">
-                    @csrf
-                    {{-- button to like --}}
-                    <button type="submit" class="font-bold my-4 hover:text-emerald-600 transition">
-                        {{-- ternary Unlike Like --}}
-                        {{ $post->isLikedByUser(auth()->user()) ? 'Unlike' : 'Like' }}
-                        {{-- display likes count --}}
-                        ({{ $post->likes->count() }})
-                    </button>
-                </form>
-            </div>
-            <div>
-                <a class="font-bold my-4 hover:text-emerald-600 transition" href="{{ route('posts.index') }}">Retour à
-                    la
-                    liste
-                    des
-                    posts</a>
-                {{-- <a class="font-bold hover:text-emerald-600 transition" href="{{ route('/') }}">Retour à la liste des
+            <form method="POST" action="{{ route('posts.like', $post->id) }}" class="mb-4">
+                @csrf
+                {{-- button to like --}}
+                <button type="submit" class="flex gap-x-2 font-bold hover:text-red-500 transition">
+                    {{-- ternary Unlike Like --}}
+                    {{ $post->isLikedByUser(auth()->user()) ? 'Unlike ' : 'Like' }}
+                    {{-- Icon thumbs up --}}
+                    @if ($post->isLikedByUser(auth()->user()))
+                        <x-heroicon-s-hand-thumb-up class="h-6 w-6 m-auto" /> {{-- full icon --}}
+                    @else
+                        <x-heroicon-o-hand-thumb-up class="h-6 w-6 m-auto" /> {{-- empty icon --}}
+                    @endif
+                    {{-- display likes count --}}
+                    ({{ $post->likes->count() }})
+                </button>
+            </form>
+            <a class="font-bold my-4 hover:text-red-500 transition" href="{{ route('posts.index') }}">Retour à
+                la
+                liste
+                des
+                posts</a>
+            {{-- <a class="font-bold hover:text-emerald-600 transition" href="{{ route('/') }}">Retour à la liste des
             posts</a> --}}
-            </div>
         </div>
         {{-- Section commentaires --}}
         <div class="mt-8">
@@ -81,7 +82,7 @@
                                         </ul>
                                     </div>
                                 @endif
-                                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Publier</button>
+                                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded">Publier</button>
                             </form>
                         </div>
                     </div>

@@ -10,13 +10,18 @@
     {{-- Like et compteur de likes --}}
     <form method="POST" action="{{ route('posts.like', $post->id) }}">
         @csrf
-        <button type="submit" class="font-bold hover:text-emerald-600 transition">
-            {{ $post->isLikedByUser(auth()->user()) ? 'Unlike' : 'Like' }}
+        {{-- button to like --}}
+        <button type="submit" class="flex gap-x-2 font-bold hover:text-red-500 transition">
+            {{-- ternary Unlike Like --}}
+            {{ $post->isLikedByUser(auth()->user()) ? 'Unlike ' : 'Like' }}
+            {{-- Icon thumbs up --}}
+            @if ($post->isLikedByUser(auth()->user()))
+                <x-heroicon-s-hand-thumb-up class="h-6 w-6 m-auto" /> {{-- full icon --}}
+            @else
+                <x-heroicon-o-hand-thumb-up class="h-6 w-6 m-auto" /> {{-- empty icon --}}
+            @endif
+            {{-- display likes count --}}
             ({{ $post->likes->count() }})
         </button>
-        {{-- Sans icon --}}
-        {{-- <button type="submit" class="font-bold mt-2 hover:text-emerald-600 transition">
-            {{ $post->isLikedByUser(auth()->user()) ? 'Unlike' : 'Like' }} ({{ $post->likes->count() }})
-        </button> --}}
     </form>
 </a>
