@@ -21,18 +21,18 @@
             <nav class="flex justify-between items-center py-2">
                 <div>
                     <a href="/"
-                        class="group font-bold text-3xl flex items-center space-x-4 hover:text-emerald-600 transition ">
+                        class="group font-bold text-3xl flex items-center space-x-4 hover:text-red-600 transition ">
                         <x-application-logo
-                            class="w-10 h-10 fill-current text-gray-500 group-hover:text-emerald-500 transition" />
+                            class="w-10 h-10 fill-current text-gray-500 group-hover:text-red-500 transition" />
                         {{-- <span>Mon blog</span> --}}
                         <span>The New Gram</span>
                     </a>
                 </div>
                 {{-- <div class="flex items-center space-x-4 justify-end"> --}}
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    {{-- <a class="font-bold hover:text-emerald-600 transition" href="/">Posts</a> --}}
-                    <a class="font-bold hover:text-emerald-600 transition" href="/login">Login</a>
-                    <a class="font-bold hover:text-emerald-600 transition" href="/register">Sign up</a>
+                    {{-- <a class="font-bold hover:text-red-600 transition" href="/">Posts</a> --}}
+                    <a class="font-bold hover:text-red-600 transition" href="/login">Login</a>
+                    <a class="font-bold hover:text-red-600 transition" href="/register">Sign up</a>
                 </div>
             </nav>
 
