@@ -29,9 +29,13 @@ class ProfileController extends Controller
             ->orderByDesc('created_at')
             ->get();
 
-        /* followCount */
-        // $followCount = $user->follows()->count(); // replace this line with your logic to count follows
-        // $followCount = auth()->user()->following()->count(); // replace this line with your logic to count follows
+        /* totalFollows */
+        $totalFollows = $user->follows->count();
+
+        /* totalFollowers */
+        // $totalFollowers = $user->followers($user)->count();
+        // $totalFollowers = User::withCount('follows')->find($user)->followers->count;
+        $totalFollowers = $user->followers->count();
 
         // On renvoie la vue avec les données
         // return view('profile.show', [
@@ -48,7 +52,7 @@ class ProfileController extends Controller
         $user_id = $user->id;
 
         // On renvoie la vue avec les données
-        return view('profile.show', compact('user', 'posts', 'comments', 'user_id'));
+        return view('profile.show', compact('user', 'posts', 'comments', 'user_id', 'totalFollows', 'totalFollowers'));
     }
 
     /* follow */

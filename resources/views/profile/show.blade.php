@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-8">
 
-        <div class="flex w-full">
+        <div class="flex w-full justify-center">
             <x-avatar class="h-20 w-20" :user="$user" />
             <div class="ml-4 flex flex-col">
                 <div class="text-gray-800 font-bold">{{ $user->name }}</div>
@@ -27,10 +27,17 @@
                             <x-heroicon-o-hand-thumb-up class="mr-1 h-6 w-6 m-auto" />
                             Follow
                         @endif
-                        {{-- {{ $totalFollows . ' - ' . $totalFollowers }} --}}
                     </button>
                 </div>
             </form>
+            <div class="ml-4 flex flex-col">
+                <div class="mx-auto"> {{ $totalFollows }} </div>
+                <div class="text-xs">Following</div>
+            </div>
+            <div class="ml-4 flex flex-col">
+                <div class="mx-auto"> {{ $totalFollowers }} </div>
+                <div class="text-xs">Followers</div>
+            </div>
 
             {{-- {{ dd($followCount) }} --}}
             {{-- <form method="POST" action="{{ route('profile.follow', $user) }}" class="">

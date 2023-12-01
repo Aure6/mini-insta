@@ -63,10 +63,20 @@ class User extends Authenticatable
     }
 
     /* Follow */
+    /* following */
     public function follows()
     {
         return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_id');
     }
+    /* followers */
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'user_id');
+    }
+    // public function followers(User $user)
+    // {
+    //     return $this->follows()->where('followed_id', $user->id);
+    // }
 
     public function follow(User $user)
     {
@@ -77,7 +87,7 @@ class User extends Authenticatable
     {
         return $this->follows()->detach($user);
     }
-
+    /* bool */
     public function isFollowing(User $user)
     {
         return $this->follows()->where('followed_id', $user->id)->exists();
