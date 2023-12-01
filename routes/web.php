@@ -38,12 +38,12 @@ Route::middleware('auth')->group(function () {
     // Liste des posts
     Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
     // Récupération des données du formulaire de création d'un post
-    // posts/create doit être après /posts/{id}
     Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    // Affichage du formulaire de création d'un post
+    // posts/create doit être avant /posts/{id}
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     // Détail d'un post
     Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
-    // Affichage du formulaire de création d'un post
-    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
     // Stockage d'un commentaire
     Route::post('/posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
     // Liker un post
@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/bio', [ProfileController::class, 'updateBio'])->name('profile.bio.update');
     // follow
     Route::post('/users/{user}/follow', [RegisteredUserController::class, 'follow'])->name('users.follow');
-    Route::post('/users/{user}/unfollow', [RegisteredUserController::class, 'unfollow'])->name('users.unfollow');
+    // Route::post('/users/{user}/unfollow', [RegisteredUserController::class, 'unfollow'])->name('users.unfollow');
 });
 
 
