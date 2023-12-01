@@ -4,10 +4,8 @@
             alt="{{ $user->name }}" />
     @else
         <div class="flex items-center justify-center bg-indigo-100">
-            <span class="text-2xl font-medium text-indigo-800">
+            <span class="text-2xl font-medium text-indigo-800 h-full">
                 {{ $user->name[0] }}
-                {{ $user->name[1] }}
-                .
             </span>
         </div>
     @endif

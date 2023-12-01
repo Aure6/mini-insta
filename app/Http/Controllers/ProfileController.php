@@ -42,7 +42,7 @@ class ProfileController extends Controller
     {
         $user = auth()->user();
 
-        // Calculate the follow count for the current user
+        // Calculate the follow count for the current user²
         // $followCount = $user->following()->count();
         $followCount = $user()->isFollowedByUser->count();
 
