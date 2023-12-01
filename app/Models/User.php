@@ -62,46 +62,24 @@ class User extends Authenticatable
         return $this->hasMany(Like::class);
     }
 
-    //Follow
-    public function following()
+    /* Follow */
+    public function follows()
     {
-        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_id')
-            ->withTimestamps();
-    }
-    public function followed()
-    {
-        return $this->belongsToMany(User::class, 'follows', 'followed_id', 'user_id')
-            ->withTimestamps();
-    }
-    public function isFollowedByUser($user)
-    {
-        return $this->follows->contains('user_id', $user->id);
+        return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_id');
     }
 
-    // public function followers()
-    // {
-    //     return $this->hasMany(User::class);
-    // }
-    // public function following()
-    // {
-    //     return $this->hasMany(User::class);
-    // }
+    public function follow(User $user)
+    {
+        return $this->follows()->save($user);
+    }
 
-    // public function followers()
-    // {
-    //     return $this->hasMany(Follow::class, 'followed_id', 'id');
-    // }
+    public function unfollow(User $user)
+    {
+        return $this->follows()->detach($user);
+    }
 
-    // public function followed(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(User::class, 'follows', 'user_id', 'followed_id')
-    //         ->withTimestamps();
-    // }
-
-    // // Check if the user is followed by another user
-    // public function isFollowedByUser(User $user): bool
-    // {
-    //     //return $this->followers->contains($user);
-    //     return $this->followers->contains('user_id', $user->id);
-    // }
+    public function isFollowing(User $user)
+    {
+        return $this->follows()->where('followed_id', $user->id)->exists();
+    }
 }

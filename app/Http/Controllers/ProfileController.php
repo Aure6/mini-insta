@@ -29,54 +29,85 @@ class ProfileController extends Controller
             ->orderByDesc('created_at')
             ->get();
 
+        /* followCount */
+        // $followCount = $user->follows()->count(); // replace this line with your logic to count follows
+        // $followCount = auth()->user()->following()->count(); // replace this line with your logic to count follows
+
         // On renvoie la vue avec les données
-        return view('profile.show', [
-            'user' => $user,
-            'posts' => $posts,
-            'comments' => $comments,
-        ]);
+        // return view('profile.show', [
+        //     'user' => $user,
+        //     'posts' => $posts,
+        //     'comments' => $comments,
+        // ]);
+        // return view('profile.show',
+        //     compact('user', 'posts', 'comments', 'followCount')
+        // );
+        // return view('profile.show', compact('user', 'posts', 'comments'));
+
+        // The user id of the user to be followed or unfollowed
+        $user_id = $user->id;
+
+        return view('profile.show', compact('user', 'posts', 'comments', 'user_id'));
     }
 
     /* follow */
-    public function follow(Request $request, User $user)
+    public function isFollowing($user_id)
     {
-        $user = auth()->user();
-
-        // Calculate the follow count for the current user²
-        // $followCount = $user->following()->count();
-        $followCount = $user()->isFollowedByUser->count();
-
-        // Update the follow count for the target user
-        $totalFollows = $user->following()->count();
-        $totalFollowers = $user->followers()->count();
-
-        // Your logic to handle the follow action goes here
-        // Example: $user->followers()->attach(auth()->user());
-
-        // On renvoie la vue avec les données
-        return view('profile.show', [
-            'followCount' => $followCount,
-            'totalFollows' => $totalFollows,
-            'totalFollowers' => $totalFollowers,
-            'user' => $user, // You may need to pass the $user variable if it's used in the 'profile.show' view
-        ]);
-        // Return the view with the data. The view is returned with the data using the compact function, which is more concise and easier to read than manually specifying each variable.
-        // return view('profile.show', compact('followCount', 'totalFollows', 'totalFollowers'));
+        return Follow::where('user_id', auth()->id())
+            ->where('followed_id', $user_id)
+            ->exists();
     }
+    public function follow($user_id)
+    {
+        if ($this->isFollowing($user_id)) {
+            // unfollow the user
+            Follow::where('user_id', auth()->id())
+                ->where('followed_id', $user_id)
+                ->delete();
+        } else {
+            // follow the user
+            Follow::create([
+                'user_id' => auth()->id(),
+                'followed_id' => $user_id
+            ]);
+        }
+        return back();
+    }
+
+
     // public function follow(User $user)
     // {
-    //     $user = auth()->user();
-
-    //     if ($post->isLikedByUser($user)) {
-    //         $post->likes()->where('user_id', $user->id)->delete();
+    //     if (auth()->user()->isFollowing($user)) {
+    //         auth()->user()->unfollow($user);
     //     } else {
-    //         Like::create([
-    //             'user_id' => $user->id,
-    //             'post_id' => $post->id,
-    //         ]);
+    //         auth()->user()->follow($user);
     //     }
 
     //     return back();
+    // }
+
+    // public function follow(Request $request, User $user)
+    // {
+    //     $user = auth()->user();
+
+    //     // Calculate the follow count for the current user²
+    //     // $followCount = $user->following()->count();
+    //     $followCount = $user()->isFollowedByUser->count();
+
+    //     // Update the follow count for the target user
+    //     $totalFollows = $user->following()->count();
+    //     $totalFollowers = $user->followers()->count();
+
+    //     // Your logic to handle the follow action goes here
+    //     // Example: $user->followers()->attach(auth()->user());
+
+    //     // On renvoie la vue avec les données
+    //     return view('profile.show', [
+    //         'followCount' => $followCount,
+    //         'totalFollows' => $totalFollows,
+    //         'totalFollowers' => $totalFollowers,
+    //         'user' => $user, // You may need to pass the $user variable if it's used in the 'profile.show' view
+    //     ]);
     // }
 
     /**

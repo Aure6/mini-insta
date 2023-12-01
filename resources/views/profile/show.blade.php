@@ -11,8 +11,30 @@
             </div>
             <div>
                 {{-- follow form --}}
-                {{ dd($followCount) }}
-                <form method="POST" action="{{ route('profile.follow', $user) }}" class="">
+                {{-- @if (isset($user_id))
+                    <p>User ID: {{ $user_id }}</p>
+                @else
+                    <p>User ID is not defined</p>
+                @endif --}}
+                <form method="POST" action="{{ route('profile.follow', $user_id) }}" class="">
+                    @csrf
+                    <div class="text-grey-700 mt-2 flex justify-end">
+                        <button type="submit" class="font-bold text-grey-800 hover:text-emerald-600 transition">
+                            {{-- @if ($this->isFollowing($user_id)) --}}
+                            @if (app('App\\Http\\Controllers\\ProfileController')->isFollowing($user_id))
+                                <x-heroicon-s-hand-thumb-up class="h6 w6" />
+                                Unfollow
+                            @else
+                                Follow
+                                <x-heroicon-o-hand-thumb-up class="h6 w6" />
+                            @endif
+                            {{-- {{ $totalFollows . ' - ' . $totalFollowers }} --}}
+                        </button>
+                    </div>
+                </form>
+
+                {{-- {{ dd($followCount) }} --}}
+                {{-- <form method="POST" action="{{ route('profile.follow', $user) }}" class="">
                     @csrf
                     <div class="text-grey-700 mt-2 flex justify-end">
                         <button type="submit"
@@ -25,7 +47,7 @@
                             {{ $totalFollows . ' - ' . $totalFollowers }}
                         </button>
                     </div>
-                </form>
+                </form> --}}
 
 
                 {{-- @if (auth()->user()->isFollowing($user))
