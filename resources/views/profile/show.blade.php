@@ -32,11 +32,11 @@
             </form>
             <div class="ml-4 flex flex-col">
                 <div class="mx-auto"> {{ $totalFollows }} </div>
-                <div class="text-xs">Following</div>
+                <div class="text-xs">Abonnements</div>
             </div>
             <div class="ml-4 flex flex-col">
                 <div class="mx-auto"> {{ $totalFollowers }} </div>
-                <div class="text-xs">Followers</div>
+                <div class="text-xs">Abonnés</div>
             </div>
 
             {{-- {{ dd($followCount) }} --}}
