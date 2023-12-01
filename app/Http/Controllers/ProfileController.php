@@ -36,6 +36,30 @@ class ProfileController extends Controller
         ]);
     }
 
+    /* follow */
+    public function follow(Request $request, User $user)
+    {
+        // Your logic to handle the follow action goes here
+        // Example: $user->followers()->attach(auth()->user());
+
+        return redirect()->back(); // Redirect back to the user's profile page
+    }
+    // public function follow(User $user)
+    // {
+    //     $user = auth()->user();
+
+    //     if ($post->isLikedByUser($user)) {
+    //         $post->likes()->where('user_id', $user->id)->delete();
+    //     } else {
+    //         Like::create([
+    //             'user_id' => $user->id,
+    //             'post_id' => $post->id,
+    //         ]);
+    //     }
+
+    //     return back();
+    // }
+
     /**
      * updateBio
      */

@@ -11,20 +11,20 @@ class Follow extends Model
 
     protected $fillable = ['user_id', 'followed_id'];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id');
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class, 'user_id');
+    // }
 
-    public function followed()
-    {
-        return $this->belongsTo(User::class, 'followed_id');
-    }
+    // public function followed()
+    // {
+    //     return $this->belongsTo(User::class, 'followed_id');
+    // }
 
-    public function following()
-    {
-        return $this->belongsTo(User::class, 'followed_id', 'id');
-    }
+    // public function following()
+    // {
+    //     return $this->belongsTo(User::class, 'followed_id', 'id');
+    // }
 
     // public function user()
     // {
