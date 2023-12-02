@@ -38,6 +38,10 @@
                 <div class="mx-auto"> {{ $totalFollowers }} </div>
                 <div class="text-xs">Abonnés</div>
             </div>
+            <div class="ml-4 flex flex-col gap-x-2">
+                <div class="mx-auto"> {{ $user->comments->count() }} </div>
+                <div class="text-xs">Commentaires</div>
+            </div>
 
             {{-- {{ dd($followCount) }} --}}
             {{-- <form method="POST" action="{{ route('profile.follow', $user) }}" class="">
@@ -54,19 +58,6 @@
                         </button>
                     </div>
                 </form> --}}
-
-
-            {{-- @if (auth()->user()->isFollowing($user))
-                    <form method="POST" action="{{ route('users.unfollow', $user) }}">
-                        @csrf
-                        <button type="submit">Unfollow</button>
-                    </form>
-                @else
-                    <form method="POST" action="{{ route('users.follow', $user) }}">
-                        @csrf
-                        <button type="submit">Follow</button>
-                    </form>
-                @endif --}}
         </div>
         {{-- Bio --}}
         <div class="flex w-full mt-4">

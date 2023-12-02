@@ -50,6 +50,9 @@
                     ({{ $post->likes->count() }})
                 </button>
             </form>
+            <div class="flex gap-x-2 mb-4">
+                {{ $post->comments->count() }}<x-heroicon-o-chat-bubble-oval-left class="h-6 w-6" />
+            </div>
             <a class="font-bold my-4 hover:text-red-500 transition" href="{{ route('posts.index') }}">Retour à
                 la
                 liste

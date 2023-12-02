@@ -8,20 +8,25 @@
         {{ $post->published_at }}
     </p>
     {{-- Like et compteur de likes --}}
-    <form method="POST" action="{{ route('posts.like', $post->id) }}">
-        @csrf
-        {{-- button to like --}}
-        <button type="submit" class="flex gap-x-2 font-bold hover:text-red-500 transition">
-            {{-- ternary Unlike Like --}}
-            {{ $post->isLikedByUser(auth()->user()) ? 'Unlike ' : 'Like' }}
-            {{-- Icon thumbs up --}}
-            @if ($post->isLikedByUser(auth()->user()))
-                <x-heroicon-s-hand-thumb-up class="h-6 w-6 m-auto" /> {{-- full icon --}}
-            @else
-                <x-heroicon-o-hand-thumb-up class="h-6 w-6 m-auto" /> {{-- empty icon --}}
-            @endif
-            {{-- display likes count --}}
-            ({{ $post->likes->count() }})
-        </button>
-    </form>
+    <div class="flex justify-between">
+        <form method="POST" action="{{ route('posts.like', $post->id) }}">
+            @csrf
+            {{-- button to like --}}
+            <button type="submit" class="flex gap-x-2 font-bold hover:text-red-500 transition">
+                {{-- ternary Unlike Like --}}
+                {{ $post->isLikedByUser(auth()->user()) ? 'Unlike ' : 'Like' }}
+                {{-- Icon thumbs up --}}
+                @if ($post->isLikedByUser(auth()->user()))
+                    <x-heroicon-s-hand-thumb-up class="h-6 w-6 m-auto" /> {{-- full icon --}}
+                @else
+                    <x-heroicon-o-hand-thumb-up class="h-6 w-6 m-auto" /> {{-- empty icon --}}
+                @endif
+                {{-- display likes count --}}
+                ({{ $post->likes->count() }})
+            </button>
+        </form>
+        <div class="flex gap-x-2">
+            {{ $post->comments->count() }}<x-heroicon-o-chat-bubble-oval-left class="h-6 w-6" />
+        </div>
+    </div>
 </a>

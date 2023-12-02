@@ -17,7 +17,7 @@
         {{-- Barre de reherche --}}
         <form action="{{ route('posts.index') }}" method="GET" class="mb-4">
             <div class="flex items-center justify-center">
-                <input type="text" name="search" id="search" placeholder="Rechercher un article"
+                <input type="text" name="search" id="search" placeholder="Rechercher un post ou un utilisateur"
                     class="flex-grow border border-gray-300 rounded shadow px-4 py-2 mr-4 max-w-xs"
                     value="{{ request()->search }}" autofocus />
                 <button type="submit" class="bg-white text-gray-600 px-4 py-2 rounded-lg shadow">

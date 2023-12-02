@@ -23,7 +23,7 @@
 
                     <!--  lien vers la liste des posts -->
                     <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
-                        {{ __('Posts') }}
+                        {{ __('Feed des posts') }}
                     </x-nav-link>
                 </div>
             </div>
