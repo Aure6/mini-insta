@@ -48,7 +48,9 @@ class CommentController extends Controller
         $post->comments()->save($comment);
 
         // Flash a success message to the session
-        session()->flash('success', 'Comment created successfully.');
+        // session()->flash('success', 'Comment created successfully.');
+        session()->flash('success', 'Commentaire créé avec succès.');
+
 
         // Redirect back to the post or wherever you want
         return redirect()->route('posts.show', ['id' => $postId]);
