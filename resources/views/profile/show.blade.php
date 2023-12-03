@@ -80,6 +80,7 @@
             </ul>
         </div>
 
+        {{-- Section commentaires --}}
         <div class="mt-8">
             <h2 class="font-bold text-xl mb-4">Commentaires</h2>
 
