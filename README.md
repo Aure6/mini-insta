@@ -9,7 +9,7 @@
 - Affichage d'une photo individuellement avec la possibilité de la liker et de la commenter.
 
 - Design et Ergonomie du Site
-- Sécurité
+- Sécurité: attaques XSS, CSRF, gestion correcte des droits d'accès
 - Qualité du Code
 - Respect des Principes de l'Orienté Objet
 
