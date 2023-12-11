@@ -8,7 +8,7 @@
 - Affichage du profil d'un utilisateur avec une galerie de ses photos.
 - Affichage d'une photo individuellement avec la possibilité de la liker et de la commenter.
 
-- Design et Ergonomie du Site
+- Design et Ergonomie du Site avec Tailwind CSS
 - Sécurité: attaques XSS, CSRF, gestion correcte des droits d'accès
 - Qualité du Code
 - Respect des Principes de l'Orienté Objet
