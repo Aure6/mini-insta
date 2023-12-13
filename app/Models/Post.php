@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    //pour éviter une certaine erreur
+    //pour éviter une certaine erreur avec DiffForHumans
     protected $casts = ["published_at" => "datetime"];
 
     public function user()

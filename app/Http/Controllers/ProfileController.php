@@ -33,8 +33,6 @@ class ProfileController extends Controller
         $totalFollows = $user->follows->count();
 
         /* totalFollowers */
-        // $totalFollowers = $user->followers($user)->count();
-        // $totalFollowers = User::withCount('follows')->find($user)->followers->count;
         $totalFollowers = $user->followers->count();
 
         // On renvoie la vue avec les données
@@ -78,42 +76,6 @@ class ProfileController extends Controller
         }
         return back();
     }
-
-
-    // public function follow(User $user)
-    // {
-    //     if (auth()->user()->isFollowing($user)) {
-    //         auth()->user()->unfollow($user);
-    //     } else {
-    //         auth()->user()->follow($user);
-    //     }
-
-    //     return back();
-    // }
-
-    // public function follow(Request $request, User $user)
-    // {
-    //     $user = auth()->user();
-
-    //     // Calculate the follow count for the current user²
-    //     // $followCount = $user->following()->count();
-    //     $followCount = $user()->isFollowedByUser->count();
-
-    //     // Update the follow count for the target user
-    //     $totalFollows = $user->following()->count();
-    //     $totalFollowers = $user->followers()->count();
-
-    //     // Your logic to handle the follow action goes here
-    //     // Example: $user->followers()->attach(auth()->user());
-
-    //     // On renvoie la vue avec les données
-    //     return view('profile.show', [
-    //         'followCount' => $followCount,
-    //         'totalFollows' => $totalFollows,
-    //         'totalFollowers' => $totalFollowers,
-    //         'user' => $user, // You may need to pass the $user variable if it's used in the 'profile.show' view
-    //     ]);
-    // }
 
     /**
      * updateBio
