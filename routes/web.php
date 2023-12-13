@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
     // modifier la bio
     Route::patch('/profile/bio', [ProfileController::class, 'updateBio'])->name('profile.bio.update');
-    // follow
+    // follow/unfollow a user
     Route::post('/profile/{user}/follow', [ProfileController::class, 'follow'])->name('profile.follow');
 });
 
