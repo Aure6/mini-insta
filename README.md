@@ -10,5 +10,4 @@
 
 - Design et Ergonomie du Site avec Tailwind CSS
 - Sécurité: attaques XSS, CSRF, gestion correcte des droits d'accès
-- Qualité du Code
 - Respect des Principes de l'Orienté Objet
